@@ -1,0 +1,17 @@
+# macOS 자동 생성 파일
+.DS_Store
+
+# Python 캐시 파일
+__pycache__/
+*.py[cod]
+
+# Python 가상환경
+.venv/
+venv/
+
+# VS Code 개인 설정
+.vscode/
+
+# 임시 파일
+*.tmp
+*.log
