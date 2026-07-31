@@ -151,8 +151,23 @@ def play_quiz(quizzes):
 
     return score
 
+def show_score(last_score, last_total, best_score):
+    print("\n점수 확인")
+
+    if last_score is None:
+        print("아직 퀴즈를 풀지 않았습니다.")
+        print(f"최고 점수: {best_score}점")
+        return
+
+    print(f"최근 점수: {last_score}/{last_total}점")
+    print(f"최고 점수: {best_score}점")
+
 def main():
     quizzes = create_default_quizzes()
+
+    last_score = None
+    last_total = 0
+    best_score = 0
 
     try:
         while True:
@@ -160,13 +175,18 @@ def main():
             choice = get_menu_choice()
 
             if choice == 1:
-                play_quiz(quizzes)
+                last_score = play_quiz(quizzes)
+                last_total = len(quizzes)
+
+                if last_score > best_score:
+                    best_score = last_score
+
             elif choice == 2:
                 add_quiz(quizzes)
             elif choice == 3:
                 list_quizzes(quizzes)
             elif choice == 4:
-                print("점수 확인 기능은 준비 중입니다.")
+                show_score(last_score, last_total, best_score)
             elif choice == 5:
                 print("퀴즈 게임을 종료합니다.")
                 break
