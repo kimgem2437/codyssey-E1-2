@@ -49,6 +49,24 @@ class QuizGame:
         if score > self.best_score:
             self.best_score = score
 
+    def add_quiz(self):
+        print("\n새로운 뮤지컬 퀴즈를 추가합니다.")
+
+        question = get_text_input("문제: ")
+
+        choices = []
+
+        for number in range(1, 5):
+            choice = get_text_input(f"{number}번 선택지: ")
+            choices.append(choice)
+
+        answer = get_number_input("정답 번호: ", 1, 4)
+
+        new_quiz = Quiz(question, choices, answer)
+        self.quizzes.append(new_quiz)
+
+        print("퀴즈가 추가되었습니다.")
+
 def create_default_quizzes():
     quizzes = [
         Quiz(
@@ -128,24 +146,6 @@ def get_text_input(prompt):
 
         print("아무것도 입력하지 않았습니다.")
 
-def add_quiz(quizzes):
-    print("\n새로운 뮤지컬 퀴즈를 추가합니다.")
-
-    question = get_text_input("문제: ")
-
-    choices = []
-
-    for number in range(1, 5):
-        choice = get_text_input(f"{number}번 선택지: ")
-        choices.append(choice)
-
-    answer = get_number_input("정답 번호: ", 1, 4)
-
-    new_quiz = Quiz(question, choices, answer)
-    quizzes.append(new_quiz)
-
-    print("퀴즈가 추가되었습니다.")
-
 def list_quizzes(quizzes):
     print("\n등록된 퀴즈 목록")
 
@@ -185,7 +185,7 @@ def main():
             if choice == 1:
                 game.play_quiz()
             elif choice == 2:
-                add_quiz(game.quizzes)
+                game.add_quiz()
             elif choice == 3:
                 list_quizzes(game.quizzes)
             elif choice == 4:
