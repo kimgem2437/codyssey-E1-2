@@ -110,6 +110,22 @@ def add_quiz(quizzes):
 
     print("퀴즈가 추가되었습니다.")
 
+def list_quizzes(quizzes):
+    print("\n등록된 퀴즈 목록")
+
+    if len(quizzes) == 0:
+        print("등록된 퀴즈가 없습니다.")
+        return
+
+    for number, quiz in enumerate(quizzes, start=1):
+        print(f"\n{number}. {quiz.question}")
+
+        for choice_number, choice in enumerate(quiz.choices, start=1):
+            print(f"    {choice_number}) {choice}")
+
+        correct_choice = quiz.choices[quiz.answer - 1]
+        print(f"    정답: {quiz.answer}번 {correct_choice}")
+
 def play_quiz(quizzes):
     score = 0
 
@@ -148,7 +164,7 @@ def main():
             elif choice == 2:
                 add_quiz(quizzes)
             elif choice == 3:
-                print(f"현재 등록된 퀴즈는 {len(quizzes)}개입니다.")
+                list_quizzes(quizzes)
             elif choice == 4:
                 print("점수 확인 기능은 준비 중입니다.")
             elif choice == 5:
