@@ -56,24 +56,52 @@ def show_menu():
     print("5. 종료")
     print("=" * 40)
 
-def get_menu_choice():
+def get_number_input(prompt, min_value, max_value):
     while True:
-        user_input = input("선택: ").strip()
+        user_input = input(prompt).strip()
 
         if user_input == "":
             print("아무것도 입력하지 않았습니다.")
             continue
 
         try:
-            choice = int(user_input)
+            number = int(user_input)
         except ValueError:
             print("숫자를 입력해주세요.")
             continue
 
-        if 1 <= choice <= 5:
-            return choice
+        if min_value <= number <= max_value:
+            return number
 
-        print("1부터 5 사이의 숫자를 입력해주세요.")
+        print(f"{min_value}부터 {max_value} 사이의 숫자를 입력해주세요.")
+
+def get_menu_choice():
+    return get_number_input("선택: ", 1, 5)
+
+def play_quiz(quizzes):
+    score = 0
+
+    print("\n뮤지컬 퀴즈를 시작합니다!")
+
+    for number, quiz in enumerate(quizzes, start=1):
+        print(f"\n[{number}/{len(quizzes)}번 문제]")
+
+        quiz.display()
+
+        user_answer = get_number_input("정답: ", 1, 4)
+
+        if quiz.is_correct(user_answer):
+            print("정답입니다!")
+            score += 1
+        else:
+            correct_choice = quiz.choices[quiz.answer - 1]
+            print(
+                f"오답입니다. 정답은 "
+                f"{quiz.answer}번 {correct_choice}입니다."
+            )
+    print(f"\n최종 점수: {score}/{len(quizzes)}점")
+
+    return score
 
 def main():
     quizzes = create_default_quizzes()
@@ -84,7 +112,7 @@ def main():
             choice = get_menu_choice()
 
             if choice == 1:
-                print("퀴즈 풀기 기능은 준비 중입니다.")
+                play_quiz(quizzes)
             elif choice == 2:
                 print("퀴즈 추가 기능은 준비 중입니다.")
             elif choice == 3:
@@ -101,4 +129,3 @@ def main():
         print("퀴즈 게임을 안전하게 종료합니다.")
 
 main()
-        
