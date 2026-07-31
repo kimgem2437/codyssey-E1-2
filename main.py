@@ -29,22 +29,27 @@ def get_menu_choice():
         print("1부터 5 사이의 숫자를 입력해주세요.")
 
 def main():
-    while True:
-        show_menu()
-        choice = get_menu_choice()
+    try:
+        while True:
+            show_menu()
+            choice = get_menu_choice()
 
-        if choice == 1:
-            print("퀴즈 풀기 기능은 준비 중입니다.")
-        elif choice == 2:
-            print("퀴즈 추가 기능은 준비 중입니다.")
-        elif choice == 3:
-            print("퀴즈 목록 기능은 준비 중입니다.")
-        elif choice == 4:
-            print("점수 확인 기능은 준비 중입니다.")
-        elif choice == 5:
-            print("퀴즈 게임을 종료합니다.")
-            break
-        print()
+            if choice == 1:
+                print("퀴즈 풀기 기능은 준비 중입니다.")
+            elif choice == 2:
+                print("퀴즈 추가 기능은 준비 중입니다.")
+            elif choice == 3:
+                print("퀴즈 목록 기능은 준비 중입니다.")
+            elif choice == 4:
+                print("점수 확인 기능은 준비 중입니다.")
+            elif choice == 5:
+                print("퀴즈 게임을 종료합니다.")
+                break
+
+            print()
+    except (KeyboardInterrupt, EOFError):
+        print("\n입력이 중단되었습니다.")
+        print("퀴즈 게임을 안전하게 종료합니다.")
 
 main()
         
