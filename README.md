@@ -91,3 +91,29 @@ musical-quiz-game/
 
 퀴즈 플레이 기능은 `feature/play-quiz` 브랜치에서 개발한 뒤 `main` 브랜치에 병합했습니다.
 저장소를 별도 폴더에 clone하여 README 수정과 push를 실습했습니다.
+
+## 실행 화면
+
+### 개발 환경 확인
+
+Python 버전과 로컬 Git 사용자 설정을 확인했습니다.
+
+![개발 환경](images/environment.png)
+
+### Git 커밋 기록
+
+기능별 커밋과 `feature/play-quiz` 브랜치 작업 기록입니다.
+
+![Git 커밋 기록](images/git-log.png)
+
+### 퀴즈 추가
+
+사용자가 문제, 선택지 4개, 정답 번호를 입력하여 새로운 퀴즈를 추가할 수 있습니다.
+
+![퀴즈 추가](images/quiz-add.png)
+
+### 퀴즈 풀이 및 점수 확인
+
+등록된 퀴즈를 풀고 최근 점수와 최고 점수를 확인할 수 있습니다.
+
+![퀴즈 풀이 및 점수 확인](images/quiz-play.png)
