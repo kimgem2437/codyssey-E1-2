@@ -103,6 +103,42 @@ class QuizGame:
         print(f"최근 점수: {self.last_score}/{self.last_total}점")
         print(f"최고 점수: {self.best_score}점")
 
+    def load_data(self):
+        try:
+            with open(
+                "state.json",
+                "r",
+                encoding="utf-8"
+            ) as file:
+                data = json.load(file)
+
+            self.quizzes = [
+                Quiz(
+                    quiz_data["question"],
+                    quiz_data["choices"],
+                    quiz_data["answer"]
+                )
+                for quiz_data in data["quizzes"]
+            ]
+
+            self.best_score = data.get("best_score", 0)
+
+            print("저장된 데이터를 불러왔습니다.")
+
+        except FileNotFoundError:
+            print("저장 파일이 없어 기본 퀴즈로 시작합니다.")
+
+        except (
+            json.JSONDecodeError,
+            KeyError,
+            TypeError,
+            OSError
+        ):
+            print(
+                "저장 데이터를 불러오지 못해 "
+                "기본 퀴즈로 시작합니다."
+            )
+
     def save_data(self):
         data = {
             "quizzes": [
@@ -235,6 +271,7 @@ def get_text_input(prompt):
 
 def main():
     game = QuizGame(create_default_quizzes())
+    game.load_data()
     game.run()
 
 main()
