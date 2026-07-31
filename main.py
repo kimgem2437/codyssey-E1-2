@@ -1,3 +1,5 @@
+import json
+
 class Quiz:
     def __init__(self, question, choices, answer):
         self.question = question
@@ -12,6 +14,13 @@ class Quiz:
 
     def is_correct(self, user_answer):
         return user_answer == self.answer
+
+    def to_dict(self):
+        return {
+            "question": self.question,
+            "choices": self.choices,
+            "answer": self.answer
+        }
 
 class QuizGame:
     def __init__(self, quizzes):
@@ -94,6 +103,30 @@ class QuizGame:
         print(f"최근 점수: {self.last_score}/{self.last_total}점")
         print(f"최고 점수: {self.best_score}점")
 
+    def save_data(self):
+        data = {
+            "quizzes": [
+                quiz.to_dict() for quiz in self.quizzes
+            ],
+            "best_score": self.best_score 
+        }
+
+        try:
+            with open(
+                "state.json",
+                "w",
+                encoding="utf-8"
+            ) as file:
+                json.dump(
+                    data,
+                    file,
+                    ensure_ascii=False,
+                    indent=4
+                )
+        except OSError:
+            print("데이터를 저장하는 중 오류가 발생했습니다.")
+    
+
     def run(self):
         try:
             while True:
@@ -109,12 +142,16 @@ class QuizGame:
                 elif choice == 4:
                     self.show_score()
                 elif choice == 5:
+                    self.save_data()
+                    print("데이터를 저장했습니다.")
                     print("퀴즈 게임을 종료합니다.")
                     break
 
                 print()
         except (KeyboardInterrupt, EOFError):
+            self.save_data()
             print("\n입력이 중단되었습니다.")
+            print("데이터를 저장했습니다.")
             print("퀴즈 게임을 안전하게 종료합니다.")
 
 def create_default_quizzes():
