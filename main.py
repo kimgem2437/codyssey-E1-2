@@ -13,6 +13,13 @@ class Quiz:
     def is_correct(self, user_answer):
         return user_answer == self.answer
 
+class QuizGame:
+    def __init__(self, quizzes):
+        self.quizzes = quizzes
+        self.last_score = None
+        self.last_total = 0
+        self.best_score = 0
+
 def create_default_quizzes():
     quizzes = [
         Quiz(
@@ -163,11 +170,7 @@ def show_score(last_score, last_total, best_score):
     print(f"최고 점수: {best_score}점")
 
 def main():
-    quizzes = create_default_quizzes()
-
-    last_score = None
-    last_total = 0
-    best_score = 0
+    game = QuizGame(create_default_quizzes())
 
     try:
         while True:
@@ -175,18 +178,18 @@ def main():
             choice = get_menu_choice()
 
             if choice == 1:
-                last_score = play_quiz(quizzes)
-                last_total = len(quizzes)
+                game.last_score = play_quiz(game.quizzes)
+                game.last_total = len(game.quizzes)
 
-                if last_score > best_score:
-                    best_score = last_score
+                if game.last_score > game.best_score:
+                    game.best_score = game.last_score
 
             elif choice == 2:
-                add_quiz(quizzes)
+                add_quiz(game.quizzes)
             elif choice == 3:
-                list_quizzes(quizzes)
+                list_quizzes(game.quizzes)
             elif choice == 4:
-                show_score(last_score, last_total, best_score)
+                show_score(game.last_score, game.last_total, game.best_score)
             elif choice == 5:
                 print("퀴즈 게임을 종료합니다.")
                 break
