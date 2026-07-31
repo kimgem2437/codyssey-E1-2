@@ -83,6 +83,17 @@ class QuizGame:
             correct_choice = quiz.choices[quiz.answer - 1]
             print(f"    정답: {quiz.answer}번 {correct_choice}")
 
+    def show_score(self):
+        print("\n점수 확인")
+
+        if self.last_score is None:
+            print("아직 퀴즈를 풀지 않았습니다.")
+            print(f"최고 점수: {self.best_score}점")
+            return
+
+        print(f"최근 점수: {self.last_score}/{self.last_total}점")
+        print(f"최고 점수: {self.best_score}점")
+
 def create_default_quizzes():
     quizzes = [
         Quiz(
@@ -162,17 +173,6 @@ def get_text_input(prompt):
 
         print("아무것도 입력하지 않았습니다.")
 
-def show_score(last_score, last_total, best_score):
-    print("\n점수 확인")
-
-    if last_score is None:
-        print("아직 퀴즈를 풀지 않았습니다.")
-        print(f"최고 점수: {best_score}점")
-        return
-
-    print(f"최근 점수: {last_score}/{last_total}점")
-    print(f"최고 점수: {best_score}점")
-
 def main():
     game = QuizGame(create_default_quizzes())
 
@@ -188,7 +188,7 @@ def main():
             elif choice == 3:
                 game.list_quizzes()
             elif choice == 4:
-                show_score(game.last_score, game.last_total, game.best_score)
+                game.show_score()
             elif choice == 5:
                 print("퀴즈 게임을 종료합니다.")
                 break
