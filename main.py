@@ -94,6 +94,29 @@ class QuizGame:
         print(f"최근 점수: {self.last_score}/{self.last_total}점")
         print(f"최고 점수: {self.best_score}점")
 
+    def run(self):
+        try:
+            while True:
+                show_menu()
+                choice = get_menu_choice()
+
+                if choice == 1:
+                    self.play_quiz()
+                elif choice == 2:
+                    self.add_quiz()
+                elif choice == 3:
+                    self.list_quizzes()
+                elif choice == 4:
+                    self.show_score()
+                elif choice == 5:
+                    print("퀴즈 게임을 종료합니다.")
+                    break
+
+                print()
+        except (KeyboardInterrupt, EOFError):
+            print("\n입력이 중단되었습니다.")
+            print("퀴즈 게임을 안전하게 종료합니다.")
+
 def create_default_quizzes():
     quizzes = [
         Quiz(
@@ -175,27 +198,6 @@ def get_text_input(prompt):
 
 def main():
     game = QuizGame(create_default_quizzes())
-
-    try:
-        while True:
-            show_menu()
-            choice = get_menu_choice()
-
-            if choice == 1:
-                game.play_quiz()
-            elif choice == 2:
-                game.add_quiz()
-            elif choice == 3:
-                game.list_quizzes()
-            elif choice == 4:
-                game.show_score()
-            elif choice == 5:
-                print("퀴즈 게임을 종료합니다.")
-                break
-
-            print()
-    except (KeyboardInterrupt, EOFError):
-        print("\n입력이 중단되었습니다.")
-        print("퀴즈 게임을 안전하게 종료합니다.")
+    game.run()
 
 main()
