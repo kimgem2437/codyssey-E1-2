@@ -90,3 +90,4 @@ musical-quiz-game/
 ## Git 브랜치 작업
 
 퀴즈 플레이 기능은 `feature/play-quiz` 브랜치에서 개발한 뒤 `main` 브랜치에 병합했습니다.
+저장소를 별도 폴더에 clone하여 README 수정과 push를 실습했습니다.
