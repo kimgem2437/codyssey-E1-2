@@ -67,6 +67,22 @@ class QuizGame:
 
         print("퀴즈가 추가되었습니다.")
 
+    def list_quizzes(self):
+        print("\n등록된 퀴즈 목록")
+
+        if len(self.quizzes) == 0:
+            print("등록된 퀴즈가 없습니다.")
+            return
+
+        for number, quiz in enumerate(self.quizzes, start=1):
+            print(f"\n{number}. {quiz.question}")
+
+            for choice_number, choice in enumerate(quiz.choices, start=1):
+                print(f"    {choice_number}) {choice}")
+
+            correct_choice = quiz.choices[quiz.answer - 1]
+            print(f"    정답: {quiz.answer}번 {correct_choice}")
+
 def create_default_quizzes():
     quizzes = [
         Quiz(
@@ -146,23 +162,6 @@ def get_text_input(prompt):
 
         print("아무것도 입력하지 않았습니다.")
 
-def list_quizzes(quizzes):
-    print("\n등록된 퀴즈 목록")
-
-    if len(quizzes) == 0:
-        print("등록된 퀴즈가 없습니다.")
-        return
-
-    for number, quiz in enumerate(quizzes, start=1):
-        print(f"\n{number}. {quiz.question}")
-
-        for choice_number, choice in enumerate(quiz.choices, start=1):
-            print(f"    {choice_number}) {choice}")
-
-        correct_choice = quiz.choices[quiz.answer - 1]
-        print(f"    정답: {quiz.answer}번 {correct_choice}")
-
-
 def show_score(last_score, last_total, best_score):
     print("\n점수 확인")
 
@@ -187,7 +186,7 @@ def main():
             elif choice == 2:
                 game.add_quiz()
             elif choice == 3:
-                list_quizzes(game.quizzes)
+                game.list_quizzes()
             elif choice == 4:
                 show_score(game.last_score, game.last_total, game.best_score)
             elif choice == 5:
