@@ -39,6 +39,11 @@ def create_default_quizzes():
             "대표 넘버 'The Phantom of the Opera'가 등장하는 뮤지컬은?",
             ["오페라의 유령", "렌트", "웃는 남자", "프랑켄슈타인"],
             1
+        ),
+        Quiz(
+            "여러 뮤지컬을 오마주해서 셰익스피어 배경으로 만든 뮤지컬은?",
+            ["어쩌다 해피엔딩", "레베카", "맨 오브 라만차", "썸싱로튼"],
+            4
         )
         
     ]
@@ -78,6 +83,33 @@ def get_number_input(prompt, min_value, max_value):
 def get_menu_choice():
     return get_number_input("선택: ", 1, 5)
 
+def get_text_input(prompt):
+    while True:
+        text = input(prompt).strip()
+
+        if text != "":
+            return text
+
+        print("아무것도 입력하지 않았습니다.")
+
+def add_quiz(quizzes):
+    print("\n새로운 뮤지컬 퀴즈를 추가합니다.")
+
+    question = get_text_input("문제: ")
+
+    choices = []
+
+    for number in range(1, 5):
+        choice = get_text_input(f"{number}번 선택지: ")
+        choices.append(choice)
+
+    answer = get_number_input("정답 번호: ", 1, 4)
+
+    new_quiz = Quiz(question, choices, answer)
+    quizzes.append(new_quiz)
+
+    print("퀴즈가 추가되었습니다.")
+
 def play_quiz(quizzes):
     score = 0
 
@@ -114,7 +146,7 @@ def main():
             if choice == 1:
                 play_quiz(quizzes)
             elif choice == 2:
-                print("퀴즈 추가 기능은 준비 중입니다.")
+                add_quiz(quizzes)
             elif choice == 3:
                 print(f"현재 등록된 퀴즈는 {len(quizzes)}개입니다.")
             elif choice == 4:
