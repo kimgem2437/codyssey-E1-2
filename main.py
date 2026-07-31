@@ -20,6 +20,35 @@ class QuizGame:
         self.last_total = 0
         self.best_score = 0
 
+    def play_quiz(self):
+        score = 0
+
+        print("\n뮤지컬 퀴즈를 시작합니다!")
+
+        for number, quiz in enumerate(self.quizzes, start=1):
+            print(f"\n[{number}/{len(self.quizzes)}번 문제]")
+
+            quiz.display()
+
+            user_answer = get_number_input("정답: ", 1, 4)
+
+            if quiz.is_correct(user_answer):
+                print("정답입니다!")
+                score += 1
+            else:
+                correct_choice = quiz.choices[quiz.answer - 1]
+                print(
+                    f"오답입니다. 정답은 "
+                    f"{quiz.answer}번 {correct_choice}입니다."
+                )
+        print(f"\n최종 점수: {score}/{len(self.quizzes)}점")
+
+        self.last_score = score
+        self.last_total = len(self.quizzes)
+
+        if score > self.best_score:
+            self.best_score = score
+
 def create_default_quizzes():
     quizzes = [
         Quiz(
@@ -133,30 +162,6 @@ def list_quizzes(quizzes):
         correct_choice = quiz.choices[quiz.answer - 1]
         print(f"    정답: {quiz.answer}번 {correct_choice}")
 
-def play_quiz(quizzes):
-    score = 0
-
-    print("\n뮤지컬 퀴즈를 시작합니다!")
-
-    for number, quiz in enumerate(quizzes, start=1):
-        print(f"\n[{number}/{len(quizzes)}번 문제]")
-
-        quiz.display()
-
-        user_answer = get_number_input("정답: ", 1, 4)
-
-        if quiz.is_correct(user_answer):
-            print("정답입니다!")
-            score += 1
-        else:
-            correct_choice = quiz.choices[quiz.answer - 1]
-            print(
-                f"오답입니다. 정답은 "
-                f"{quiz.answer}번 {correct_choice}입니다."
-            )
-    print(f"\n최종 점수: {score}/{len(quizzes)}점")
-
-    return score
 
 def show_score(last_score, last_total, best_score):
     print("\n점수 확인")
@@ -178,12 +183,7 @@ def main():
             choice = get_menu_choice()
 
             if choice == 1:
-                game.last_score = play_quiz(game.quizzes)
-                game.last_total = len(game.quizzes)
-
-                if game.last_score > game.best_score:
-                    game.best_score = game.last_score
-
+                game.play_quiz()
             elif choice == 2:
                 add_quiz(game.quizzes)
             elif choice == 3:
